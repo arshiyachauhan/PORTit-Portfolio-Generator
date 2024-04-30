@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to PortIt</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: linear-gradient(45deg, #14003e, #ad55ad, #5ae2d0, #9b0a83);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .form-container {
+      background-color:#df3c9e;
+      border-color: #000;
+      padding: 20px;
+      padding-top: 200px;
+      border-radius: 10px;
+      width: 600px; /* Adjust width as needed */
+      margin: 0 auto; /* Center the container */
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 30px;
+      color: rgb(224, 219, 215);
+      font-style:italic;
+    }
+
+    h2 {
+      font-size: 70px;
+      color: #1d1407; /* Change color as needed */
+      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+  
+    /* Custom styles for the navbar */
+    .navbar {
+      background-color: whitesmoke;
+      font-family:Verdana, Geneva, Tahoma, sans-serif; /* Set font family */
+      font-style:initial;
+    }
+
+    .navbar-brand {
+      font-size: 40px; /* Adjust font size */
+      font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      color: #460d5d; /* Dark text color */
+    }
+    label {
+      color: #000000; /* Black color */
+      font-style: initial;
+      display: block; /* Make label full width */
+      margin-bottom: 10px; /* Add space below label */
+    }
+  
+      .login-container {
+        margin-bottom: 200px;
+        margin-top: 40px;
+      }
+  
+      .card-header {
+        background-color:rgba(192, 8, 209, 0.5);
+        color: #fffbfb;
+        font-size:20px;
+      }
+  
+      .card-body {
+      background-color: rgba(201, 74, 150, 0.5); /* RGBA value with opacity */
+    }
+  
+      .form-group label {
+        color: #333;
+        font-weight: bold;
+      }
+  
+      .form-control {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+  
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+  
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+  
+      .btn-link {
+        color: #007bff;
+      }
+  
+      .btn-link:hover {
+        color: #0056b3;
+      }
+    </style>
+  </head>
+  <!-- <body>
+    <nav class="navbar" id="top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">PortIt</a>
+      </div>
+      </nav>
+    
+    <div class="container login-container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Login to interface
+            </div>
+            <div class="card-body">
+              <form action="/login" method="POST">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                </div>
+                <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Agree with terms and Conditions</label>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block" >Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
+</html> -->
+<body>
+    <nav class="navbar" id="top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">PortIt</a>
+        </div>
+    </nav>
+    
+    <div class="container login-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Login to interface
+                    </div>
+                    <div class="card-body">
+                        <!-- Error message placeholder -->
+                        <div id="error-message" class="alert alert-danger" style="display: none;"></div>
+
+                        <form action="/login" method="POST" >
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Agree with terms and Conditions</label>
+                            </div>
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to display error message -->
+    <script>
+        // Get the error message from the query string and display it
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('error');
+        if (errorMessage) {
+            const errorMessageDiv = document.getElementById('error-message');
+            errorMessageDiv.textContent = errorMessage;
+            errorMessageDiv.style.display = 'block';
+        }
+       
+    </script>
+</body>
+</html>
+

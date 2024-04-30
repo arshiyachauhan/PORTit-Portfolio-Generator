@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Portfolio - PortIt</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #7a1793, #e6e4e6);
+      background-size: cover;
+    }
+
+    .navbar {
+      background: linear-gradient(to bottom, #a135a1, #bcded6);
+      background-size: cover;
+    }
+
+    .navbar-brand {
+      color: #08032c;
+      font-size: 40px;
+      bottom: 0%;
+      text-align: justify;
+    }
+
+    .navbar-brand img {
+      padding-left: 20px;
+      padding-top: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #210122;
+      font-size: 25px;
+    }
+
+    .nav-link:hover {
+      color: #3c0d82;
+    }
+
+    .navbar-nav .nav-link[href] {
+      color: rgb(63, 4, 69); /* Color for themes */
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .navbar-nav .nav-link[href="index.html"] {
+      color: rgb(73, 5, 72);
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .dropdown-menu {
+      background-color: #6a0a58;
+    }
+
+    .dropdown-item {
+      color: #fff;
+    }
+
+    .dropdown-item:hover {
+      background-color: #7d5379;
+    }
+
+    .container {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      color: #111111;
+      font-size: 60px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .btn-primary {
+      background-color: #6a0a58;
+      border-color: #6a0a58;
+    }
+
+    .btn-primary:hover {
+      background-color: #53064c;
+      border-color: #53064c;
+    }
+
+    .form-container {
+      background-color: rgba(167, 191, 230, 0.7);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      color: #111111;
+      font-size: 25px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+      background-color: #e6e4e6;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    textarea {
+      height: 150px;
+    }
+
+    .custom-file-label {
+      background-color: #e6e4e6;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .custom-file-label::after {
+      background-color: #6a0a58;
+      border-color: #6a0a58;
+      color: #fff;
+    }
+
+    .custom-file-label:hover::after {
+      background-color: #53064c;
+      border-color: #53064c;
+      color: #fff;
+    }
+
+    .form-check-label {
+      color: #111111;
+      font-size: 20px;
+    }
+
+    .btn-lg {
+      font-size: 25px;
+      padding: 10px 50px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" width="380" height="120" class="d-inline-block align-top" alt="">
+      <h2>Welcome To PortIt</h2>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="scrollToThemes()">Themes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Add User</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Contact Us
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" onclick="showContactUs()">portit@gmail.com</a>
+            <a class="dropdown-item" href="#" onclick="showContactUs()">5467890221</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="form-container">
+          <h1>Create Portfolio</h1>
+          <form action="/generate" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+              <label for="about">About</label>
+              <textarea class="form-control" id="about" name="about" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="education">Education</label>
+              <input type="text" class="form-control" id="education" name="education" required>
+            </div>
+            <div class="form-group">
+              <label for="skills">Skills</label>
+              <input type="text" class="form-control" id="skills" name="skills" required>
+            </div>
+            <div class="form-group">
+              <label for="project">Projects</label>
+              <input type="text" class="form-control" id="project" name="project" required>
+            </div>
+            <div class="form-group">
+              <label for="background">Background Image</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="profilePhoto" name="profilePhoto" required>
+                <label class="custom-file-label" for="profilePhoto">Choose file</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" name="address" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="emailaddress" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="github">GitHub</label>
+              <input type="text" class="form-control" id="github" name="github">
+            </div>
+            <div class="form-group">
+              <label for="medium">Medium</label>
+              <input type="text" class="form-control" id="medium" name="medium">
+            </div>
+            <div class="form-group">
+              <label for="twitter">Twitter</label>
+              <input type="text" class="form-control" id="twitter" name="twitter">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Generate Portfolio</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function scrollToThemes() {
+      var element = document.getElementById("container-theme");
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

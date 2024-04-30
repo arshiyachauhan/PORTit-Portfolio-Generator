@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - PortIt</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+    background: linear-gradient(to bottom, #7a1793, #e6e4e6); /* Gradient background */
+ /* Fallback background image */
+    background-size: cover;
+  }
+
+  .navbar {
+    background: linear-gradient(to bottom, #a135a1, #bcded6);/* Gradient background */
+     /* Fallback background image */
+    background-size: cover;
+  }
+
+    .navbar-brand {
+      color: #08032c; /* White text color */
+      font-size: 40px;
+      bottom: 0%;
+      text-align:justify;
+    }
+    .navbar-brand img {
+      padding-left: 20px; 
+      padding-top: 10px;
+
+    }
+
+    .navbar-nav .nav-link {
+      color: #210122; /* White text color */
+      font-size: 25px;
+    }
+
+    .nav-link:hover {
+      color: #3c0d82; /* Light grey color on hover */
+    }
+    .navbar-nav .nav-link[href] {
+      color: rgb(63, 4, 69); /* Color for themes */
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .navbar-nav .nav-link[href="index.html"] {
+      color: rgb(73, 5, 72); /* Color for Add User */
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+  
+    
+
+    .dropdown-menu {
+      background-color: #6a0a58; /* Dark grey color */
+    }
+
+    .dropdown-item {
+      color: #fff; /* White text color */
+    }
+
+    .dropdown-item:hover {
+      background-color: #7d5379; /* Darker grey color on hover */
+    }
+
+    .container {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    h2{
+      color: #53064c;
+      padding-left: 65px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    h1 {
+      color: #111111; /* Dark grey text color */
+      font-size: 60px;
+      font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .themes-column {
+      display: none;
+    }
+    .container-theme {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px; /* Adjust spacing between columns */
+    }
+
+    .col {
+      flex: 1;
+      padding: 0 10px; /* Adjust spacing between columns */
+    }
+
+    .card {
+      border: 1px solid #041d02;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+    .container-space {
+  height: 50px; /* Adjust spacing height as needed */
+}
+    
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" width="380" height="120" class="d-inline-block align-top" alt="">
+      <h2>Welcome To PortIt</h2>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="scrollToThemes()">Themes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Add User</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login.html">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Contact Us
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" onclick="showContactUs()">portit@gmail.com</a>
+            <a class="dropdown-item" href="#" onclick="showContactUs()">5467890221</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="slide1.jpg" alt="First slide" style="height: 600px;">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="slide3.png" alt="Second slide" style="height: 600px;">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="slide2.jpg" alt="Third slide" style="height: 600px;">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="slide4.jpeg" alt="Third slide" style="height: 600px;">
+      </div>
+    </div>
+  </div>
+  <div class="container-space"></div>
+
+  <div class="container-theme" id="container-theme">
+    <h1>Available Background Themes</h1><br>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <img src="theme1.jpg" alt="Theme 1">
+          <h3>Theme1</h3>
+          <p>Category: Pastel Themes<br>Colour: Peach</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="theme7.avif" alt="Theme 2">
+          <h3>Theme 2</h3>
+          <p>Category: Graphic Themes<br>Colour: Dark Grey</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <img src="theme8.avif" alt="Theme 3">
+          <h3>Theme 3</h3>
+          <p>Category: Graphic Themes<br>Colour: Dark bkue</p>
+        </div>
+      </div>
+      
+      <!-- Repeat the above structure for additional images -->
+    </div>
+  </div>
+  
+
+
+  <!-- Content -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col">
+        <a href="form.html" class="btn btn-primary btn-lg btn-block">Create Portfolio</a>
+      </div>
+      <!-- <div class="col">
+        <a href="#" class="btn btn-secondary btn-lg btn-block">View Portfolio</a>
+      </div> -->
+    </div>
+  </div>
+  
+
+  <script>
+    function scrollToThemes() {
+      var element = document.getElementById("container-theme");
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
