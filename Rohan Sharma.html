@@ -1,144 +1,4 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const fs = require('fs');
-const multer = require('multer');
-const mongoose = require("mongoose");
-const Register = require("./models/register");
-require('dotenv').config();
-
-const MONGO_URI = process.env.MONGO_URI;
-mongoose.connect(MONGO_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('Error connecting to MongoDB:', err));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Set up Multer for file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/'); // Folder to store uploaded files
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); // Generate unique filename
-    }
-});
-const upload = multer({ storage: storage });
-
-// Route to serve the form
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-// Route for serving index.html (login page)
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
-
-// Route for serving home.html (homepage)
-app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/home.html'));
-});
-
-// Register user
-app.post("/register", async (req, res) => {
-  try {
-      const registerUser = new Register({
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          email: req.body.email,
-          password: req.body.password
-      });
-      const registered = await registerUser.save();
-      res.redirect('/home.html');
-  } catch (error) {
-      res.status(400).send(error);
-  }
-});
-
-// Login user
-app.post("/login", async (req, res) => {
-  try {
-      const email = req.body.email;
-      const password = req.body.password;
-      const user = await Register.findOne({ email: email });
-
-      if (!user) {
-          // If user does not exist, redirect with error message
-          return res.redirect('/login?error=Invalid email');
-      }
-
-      if (user.password !== password) {
-          // If password does not match, redirect with error message
-          return res.redirect('/login?error=Password does not match');
-      }
-
-      // If login successful, redirect to the homepage
-      res.redirect('/home.html');
-  } catch (error) {
-      res.status(500).send("Internal Server Error");
-  }
-});
-
-// Route to handle form submission
-app.post('/generate', upload.single('profilePhoto'), (req, res) => {
-    const formData = req.body;
-    const username = formData.username;
-    const profilePhoto = req.file ? req.file.filename : 'default.jpg';
-    const portfolioHTML = generatePortfolioHTML(formData, profilePhoto);
-    const portfolioFileName = `${username}.html`;
-
-    // Write the portfolio HTML to a file
-    fs.writeFile(portfolioFileName, portfolioHTML, (err) => {
-        if (err) {
-            console.error('Error writing file:', err);
-            res.status(500).send('Error generating portfolio');
-        } else {
-            res.redirect(`/${portfolioFileName}`);
-        }
-    });
-});
-
-app.get('/:username', (req, res) => {
-    const username = req.params.username;
-    const portfolioFileName = `${username}`;
-
-    res.sendFile(path.join(__dirname, portfolioFileName), (err) => {
-        if (err) {
-            console.error('Error sending file:', err);
-            res.status(500).send('Error loading portfolio');
-        }
-    });
-});
-
-// Function to generate the portfolio HTML based on form data
-function generatePortfolioHTML(formData, profilePhoto) {
-    const {
-        username,
-        about,
-        education,
-        skills,
-        project,
-        background,
-        address,
-        emailaddress,
-        phone,
-        github,
-        medium,
-        twitter,
-    } = formData;
-
-    const educationArray = education.split(',').map(edu => `<li>${edu.trim()}</li>`).join('');
-    const skillsArray = skills.split(',').map(skill => `<li>${skill.trim()}</li>`).join('');
-    const projectArray = project.split(',').map(proj => `<li>${proj.trim()}</li>`).join('');
-
-    const profilePhotoPath = profilePhoto !== 'default.jpg' ? `uploads/${profilePhoto}` : `uploads/${profilePhoto}`;
-
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en-gb">
     <head>
       <meta charset="utf-8">
@@ -281,8 +141,8 @@ function generatePortfolioHTML(formData, profilePhoto) {
             <div class="col-lg-6">
               <div class="card mb-3">
                 <div class="card-body">
-                  <h2 class="card-title-user">Hello, I am ${username}</h2>
-                  <p class="card-text">${about}</p>
+                  <h2 class="card-title-user">Hello, I am Rohan Sharma</h2>
+                  <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
               </div>
             </div>
@@ -290,7 +150,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="profile-photo-container">
-                    <img src="${profilePhotoPath}" alt="Profile Photo">
+                    <img src="uploads/profilePhoto-1714546082529.jpg" alt="Profile Photo">
                   </div>
                 </div>
               </div>
@@ -305,7 +165,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <ul>
-                    ${educationArray}
+                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</li><li>when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</li><li>but also the leap into electronic typesetting</li><li>remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</li><li>and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
                   </ul>
                 </div>
               </div>
@@ -320,7 +180,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <ul>
-                    ${skillsArray}
+                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</li><li>when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</li><li>but also the leap into electronic typesetting</li><li>remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</li><li>and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
                   </ul>
                 </div>
               </div>
@@ -335,7 +195,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <ul>
-                    ${projectArray}
+                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</li><li>when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</li><li>but also the leap into electronic typesetting</li><li>remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</li><li>and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
                   </ul>
                 </div>
               </div>
@@ -350,7 +210,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <h5 class="card-title">Address</h5>
-                  <p class="card-text">${address}</p>
+                  <p class="card-text">Jalandhar</p>
                 </div>
               </div>
             </div>
@@ -358,7 +218,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <h5 class="card-title">Email</h5>
-                  <p class="card-text">${emailaddress}</p>
+                  <p class="card-text">Email@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -366,7 +226,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <h5 class="card-title">Phone</h5>
-                  <p class="card-text">${phone}</p>
+                  <p class="card-text">4567789290</p>
                 </div>
               </div>
             </div>
@@ -374,7 +234,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <h5 class="card-title">GitHub</h5>
-                  <p class="card-text">${github}</p>
+                  <p class="card-text">https://github.com/</p>
                 </div>
               </div>
             </div>
@@ -382,7 +242,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <h5 class="card-title">Medium</h5>
-                  <p class="card-text">${medium}</p>
+                  <p class="card-text">https://medium.com/</p>
                 </div>
               </div>
             </div>
@@ -390,7 +250,7 @@ function generatePortfolioHTML(formData, profilePhoto) {
               <div class="card mb-3">
                 <div class="card-body">
                   <h5 class="card-title">Twitter</h5>
-                  <p class="card-text">${twitter}</p>
+                  <p class="card-text">https://twitter.com/</p>
                 </div>
               </div>
             </div>
@@ -403,63 +263,3 @@ function generatePortfolioHTML(formData, profilePhoto) {
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
     </html>    
-`;
-}
-
-// // Route for serving index.html (login page)
-// app.get('/login', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/index.html'));
-// });
-// app.get('/register', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/index.html'));
-// });
-
-// // Route for serving home.html (homepage)
-// app.get('/home', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/home.html'));
-// });
-
-// // Register user
-// app.post("/register", async (req, res) => {
-//     try {
-//         const registerUser = new Register({
-//             firstname: req.body.firstname,
-//             lastname: req.body.lastname,
-//             email: req.body.email,
-//             password: req.body.password
-//         });
-//         const registered = await registerUser.save();
-//         res.redirect('/home.html');
-//     } catch (error) {
-//         res.status(400).send(error);
-//     }
-// });
-
-// // Login user
-// app.post("/login", async (req, res) => {
-//     try {
-//         const email = req.body.email;
-//         const password = req.body.password;
-//         const user = await Register.findOne({ email: email });
-
-//         if (!user) {
-//             // If user does not exist, redirect with error message
-//             return res.redirect('/login?error=Invalid email');
-//         }
-
-//         if (user.password !== password) {
-//             // If password does not match, redirect with error message
-//             return res.redirect('/login?error=Password does not match');
-//         }
-
-//         // If login successful, redirect to the homepage
-//         res.redirect('/home.html');
-//     } catch (error) {
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
