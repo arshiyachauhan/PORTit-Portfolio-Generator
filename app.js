@@ -406,59 +406,6 @@ function generatePortfolioHTML(formData, profilePhoto) {
 `;
 }
 
-// // Route for serving index.html (login page)
-// app.get('/login', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/index.html'));
-// });
-// app.get('/register', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/index.html'));
-// });
-
-// // Route for serving home.html (homepage)
-// app.get('/home', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public/home.html'));
-// });
-
-// // Register user
-// app.post("/register", async (req, res) => {
-//     try {
-//         const registerUser = new Register({
-//             firstname: req.body.firstname,
-//             lastname: req.body.lastname,
-//             email: req.body.email,
-//             password: req.body.password
-//         });
-//         const registered = await registerUser.save();
-//         res.redirect('/home.html');
-//     } catch (error) {
-//         res.status(400).send(error);
-//     }
-// });
-
-// // Login user
-// app.post("/login", async (req, res) => {
-//     try {
-//         const email = req.body.email;
-//         const password = req.body.password;
-//         const user = await Register.findOne({ email: email });
-
-//         if (!user) {
-//             // If user does not exist, redirect with error message
-//             return res.redirect('/login?error=Invalid email');
-//         }
-
-//         if (user.password !== password) {
-//             // If password does not match, redirect with error message
-//             return res.redirect('/login?error=Password does not match');
-//         }
-
-//         // If login successful, redirect to the homepage
-//         res.redirect('/home.html');
-//     } catch (error) {
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
